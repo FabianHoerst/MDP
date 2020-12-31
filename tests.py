@@ -108,6 +108,7 @@ class TestMDP(unittest.TestCase):
         # build MDPs
         mdp1 = MDP(states1, actions1, probabilities1, rewards1)
         mdp2 = MDP(states2, actions2, probabilities2, rewards2)
+        # Tests
         self.assertEqual(mdp1.applicable_actions('s1'), ['a1'], 'applicable_actions Method test failed')
         self.assertEqual(mdp2.applicable_actions('a'), ['1', '2'], 'applicable_actions Method test failed')
 
@@ -116,8 +117,10 @@ class TestMDP(unittest.TestCase):
         Test if the successor_states method of the class MDP is returning the possible successor states when
         beeing in a state s and take action a
         '''
+        # build MDPs
         mdp1 = MDP(states1, actions1, probabilities1, rewards1)
         mdp2 = MDP(states2, actions2, probabilities2, rewards2)
+        # Tests
         self.assertEqual(mdp1.successor_states('s1', 'a1'), ['s1', 's2'], 'successor_states Method test failed')
         self.assertEqual(mdp2.successor_states('b', '1'), ['a', 'c'], 'successor_states Method test failed')
 
@@ -125,6 +128,7 @@ class TestMDP(unittest.TestCase):
         '''
         Test if the build_P Method is returning the correct Probability matrix for a given policy
         '''
+        # build MDPs and policies
         mdp1 = MDP(states1, actions1, probabilities1, rewards1)
         p1 = np.array([[0.9, 1], [0.1, 0]])
         policy1 = {
@@ -138,6 +142,7 @@ class TestMDP(unittest.TestCase):
             'b': '1',
             'c': '1'
         }
+        # Tests
         npt.assert_array_equal(mdp1.build_P(policy1), p1, 'build_P Method test failed')
         npt.assert_array_equal(mdp2.build_P(policy2), p2, 'build_P Method test failed')
 
@@ -145,45 +150,50 @@ class TestMDP(unittest.TestCase):
         '''
         Test if the build_R Method is returning the correct return for a state
         '''
+        # build MDPs and policy
         r = np.array([18, 0])
         policy = {
             's1': 'a1',
             's2': 'a2'
         }
         mdp = MDP(states1, actions1, probabilities1, rewards1)
+        # Test
         npt.assert_array_equal(mdp.build_R(policy), r, 'build_R Method test failed')
 
     def test_bellman_eq_policy(self):
         '''
         Test if the bellman_eq_policy Method is returning the correct value functions for a given policy
         '''
+        # build MDPs and policies with value functions
         mdp1 = MDP(states1, actions1, probabilities1, rewards1)
         policy1 = {
             's1': 'a1',
             's2': 'a2'
         }
-        value_function11 = np.array([34.285714, 17.142857])
-        value_function12 = np.array([1637.852593, 1621.474067])
-
+        value_function1 = {'s1': 34.2857, 's2': 17.1429}
         mdp2 = MDP(states2, actions2, probabilities2, rewards2)
         policy2 = {
             'a': '1',
             'b': '1',
             'c': '1'
         }
-        value_function21 = np.array([8.63, 9.59, 10.46])
-
-        npt.assert_array_almost_equal(mdp1.bellman_eq_policy(policy1, 0.5), value_function11, 6, \
-                                      'bellman_eq_policy Method test failed')
-        npt.assert_array_almost_equal(mdp1.bellman_eq_policy(policy1, 0.99), value_function12, 6, \
-                                      'bellman_eq_policy Method test failed')
-        npt.assert_array_almost_equal(mdp2.bellman_eq_policy(policy2, 0.9), value_function21, 2, \
-                                      'bellman_eq_policy Method test failed')
+        value_function2 = {'a': 8.63, 'b': 9.59, 'c': 10.46}
+        # calculate return and round it
+        return_v_1 = mdp1.bellman_eq_policy(policy1, 0.5)
+        for state in return_v_1:
+            return_v_1[state] = round(return_v_1[state], 4)
+        return_v_2 = mdp2.bellman_eq_policy(policy2, 0.9)
+        for state in return_v_2:
+            return_v_2[state] = round(return_v_2[state], 2)
+        # Tests
+        self.assertEqual(return_v_1, value_function1, 'bellman_eq_policy Method test failed')
+        self.assertEqual(return_v_2, value_function2, 'bellman_eq_policy Method test failed')
 
     def test_value_iteration(self):
         '''
         Test if the value_iteration algorithm is returning the correct optimal policy and value function
         '''
+        # build MDPs and optimal policy
         mdp1 = MDP(states1, actions1, probabilities1, rewards1)
         optimal_policy1 = {'s1':'a1', 's2':'a2'}
         policy1, value_function1 = mdp1.value_iteration(0.5, 10000, 1e-7)
@@ -191,6 +201,7 @@ class TestMDP(unittest.TestCase):
         optimal_policy2 = {'a': '2', 'b': '1', 'c': '1'}
         policy2, value_function2 = mdp2.value_iteration(0.9, 10000, 1e-7)
 
+        # Tests for optimal policy and optimal value function
         self.assertEqual(policy1, optimal_policy1, 'bellman_eq_policy Method test failed')
         self.assertEqual(value_function1, {'s1': 34.285714255234645, 's2': 17.142857112377495}, \
                          'bellman_eq_policy Method test failed')

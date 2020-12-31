@@ -74,9 +74,13 @@ class MDP():
         :return: a list of actions that can be performed when in state
         '''
         actions = []
-        for state in self.states:
-            for action in self.actions:
+        # for every possible state
+        for state in self.get_states():
+            # perform every action
+            for action in self.get_actions():
+                # test if arc is defined
                 if (s, action, state) in self.probabilities:
+                    # if action is not in list append it
                     if action not in actions:
                         actions.append(action)
 
@@ -148,11 +152,19 @@ class MDP():
         calculate the value function for a given policy using bellman equation
         :param policy: Dictionary mapping from state to action
         :param gamma: discount factor gamma, usually gamma = [0,1]
-        :return value_function: dictionary containing the value function of the best policy, e.g. v = { 's1': 123.6, 's2': -1.1,...}
+        :return value_function: dictionary containing the value function, e.g. v = { 's1': 123.6, 's2': -1.1,...}
         '''
+
+        # calculate p and r
         p_matrix = self.build_P(policy)
         r_matrix = self.build_R(policy)
-        value_function = r_matrix@np.linalg.inv(np.eye(len(p_matrix))-gamma*p_matrix)
+        # use bellman equation
+        v = r_matrix@np.linalg.inv(np.eye(len(p_matrix))-gamma*p_matrix)
+        # build dictionary
+        value_function = {}
+        states = self.get_states()
+        for i in range(len(states)):
+            value_function[states[i]] = v[i]
 
         return value_function
 
@@ -168,10 +180,14 @@ class MDP():
         '''
         # Initialization: v_0 = dict with zeros
         v_n = {state: 0 for state in self.states}
+        # iterative algorithm that is running until max_iterations is reached or error is small enough
         for i in range(max_iterations):
+            # next value function initialized to zero
             v_n_1 = {}
+            # calulate v_n_1 for every state in the MDP
             for state in self.states:
                 action_values = {}
+                # find action that maximizes the value function
                 for action in self.applicable_actions(state):
                     action_values[action] = 0
                     for successor_state in self.successor_states(state, action):
@@ -200,6 +216,7 @@ class MDP():
                                 self.get_reward(state, action, successor_state) + gamma * v_n[successor_state])
                     action_values[action] = action_values[action] + value
             best_action = max(action_values, key=lambda k: action_values[k])
+            # build dictionary
             policy[state] = best_action
 
         v = v_n
