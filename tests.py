@@ -200,5 +200,6 @@ class TestMDP(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    #unittest.main()
-    help(MDP)
+    unittest.main()
+    mdp1 = MDP(states1, actions1, probabilities1, rewards1)
+    help(mdp1)
