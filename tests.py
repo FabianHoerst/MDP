@@ -200,4 +200,5 @@ class TestMDP(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    #unittest.main()
+    help(MDP)

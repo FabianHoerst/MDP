@@ -3,7 +3,8 @@ import numpy as np
 class MDP():
     '''
     Base class for defining an MDP
-    Definition of an MDP
+
+    Definition of an MDP:
     A Markov Decision Process (MDP) is defined as a 4-tuple <S, A, P, R> where
     - S is a (finite) set of states
     - A is a (finite) set of actions
@@ -99,8 +100,11 @@ class MDP():
         '''
         For a given policy (mapping from state to action), calculate the probability transition matrix P(s'|s)
         similar to the P Matrix in Markov Chains
-        :param policy: Dictionary mapping from state to action
-        :return: P_matrix: Matrix containing the transition probabilities from state s to state s'
+        :param policy: Dictionary mapping from state to action, e.g. policy = { 's1': 'a1', 's2': 'a2',...}
+        :return: P_matrix: Matrix containing the transition probabilities from state s to state s',
+            e.g. P = [ 1, 0.4, 0,
+                       0, 0.2, 0.2,
+                       0, 0.4, 0.8 ]
         '''
         # Define Matrix with 0 entries
         p_matrix = np.zeros([len(self.states), len(self.states)])
@@ -120,8 +124,8 @@ class MDP():
     def build_R(self, policy):
         '''
         For a given policy (mapping from state to action), calculate the Reward of every state
-        :param policy: Dictionary mapping from state to action
-        :return: r_matrix: Vector containing the values of the reward function
+        :param policy: Dictionary mapping from state to action, e.g. policy = { 's1': 'a1', 's2': 'a2',...}
+        :return: r_matrix: Vector containing the values of the reward function for the states
         '''
         # Define Matrix with 0 entries
         r_matrix = np.zeros(len(self.states))
@@ -141,9 +145,10 @@ class MDP():
 
     def bellman_eq_policy(self, policy, gamma):
         '''
-        For a given policy (mapping from state to action), calculate the Reward of every state
+        calculate the value function for a given policy using bellman equation
         :param policy: Dictionary mapping from state to action
-        :return: r_matrix: Vector containing the values of the reward function
+        :param gamma: discount factor gamma, usually gamma = [0,1]
+        :return value_function: dictionary containing the value function of the best policy, e.g. v = { 's1': 123.6, 's2': -1.1,...}
         '''
         p_matrix = self.build_P(policy)
         r_matrix = self.build_R(policy)
@@ -151,7 +156,16 @@ class MDP():
 
         return value_function
 
-    def value_iteration(self, gamma, max_iterations, epsilon):
+    def value_iteration(self, gamma, max_iterations = 10000, epsilon = 1e-7):
+        '''
+        Perform the value iteration algorithm to find the best policy for a given state
+        :param gamma: discount factor gamma, usually gamma = [0,1]
+        :param max_iterations: maximum number of iterations for the value_iteration algorithm
+        :param epsilon: defining the error, if the change of the value function in one iteration step is lower than
+                        epsilon, the algorithm will terminate
+        :return: policy: dictionary containing the best policy, e.g. policy = { 's1': 'a1', 's2': 'a2',...}
+        :return: v: dictionary containing the value function of the best policy, e.g. v = { 's1': 123.6, 's2': -1.1,...}
+        '''
         # Initialization: v_0 = dict with zeros
         v_n = {state: 0 for state in self.states}
         for i in range(max_iterations):
@@ -188,4 +202,5 @@ class MDP():
             best_action = max(action_values, key=lambda k: action_values[k])
             policy[state] = best_action
 
-        return policy, v_n
+        v = v_n
+        return policy, v
