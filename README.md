@@ -16,7 +16,10 @@ with:
  Please notice:
  
 ### Example:
-
+Definition:
+![MDP Definition](assets/mdp_def.png)
+Graphical: 
+![MDP Figure](assets/mdp.png)
 ### Expected Reward
 ### Policy
 ### Evaluation of a policy: Bellman Equation
