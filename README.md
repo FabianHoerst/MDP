@@ -6,6 +6,8 @@ It is important to consider uncertainty in decision making. Real environments be
 ### Mathematical description
 Definition: A markov decision process is defined as a tupel
 
+![mdp_tupel](assets/15o22.png)
+
 with: 
  - S a finite set of states
  - A a finite set of actions
@@ -13,8 +15,10 @@ with:
  - R: S x A x S -> R, rewards
  - discount factor [0,1]
  
- Please notice:
- 
+Please notice:
+
+![mdp_tupel](assets/15o2p.png)
+
 ### Example:
 Definition:
 ![MDP Definition](assets/mdp_def.png)
