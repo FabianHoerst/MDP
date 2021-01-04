@@ -42,3 +42,5 @@ To build a Markov Chain, the an MDP instance needs to be initialized in the foll
 - rewards: dictionary containing the reward when beeing in state s, taking action a, and going to state s'
                             structure: R(s,a,s') with s = recent state, a = action to take and s' = successor state
                             e.g. rewards = {('s', 'a', 's'') : r, ...}
+                            
+**The main part of the class is the value iteration algorithm that is used to calculate the best policy for a given MDP**                        
