@@ -35,13 +35,14 @@ is in a state s.
 The value function V assigns to each states the value V(s) = E(Gt|st=s), where st is the state at time step t.
 Writing V and R as vectors the above equation becomes 
 
-![def](assets/15o22.png)
+![def](assets/15qq9.png)
 
 and hence
 
-![def](assets/15o22.png)
+![def](assets/15qqa.png)
 
-This is called the Bellman equation
+This is called the Bellman equation.
+
 ### Find the optimal policy: Value iteration
 Given a MDP, we want to find the policy such that the corresponding value function is maximal and hence, 
 the expected reward. 
