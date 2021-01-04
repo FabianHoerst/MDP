@@ -30,9 +30,17 @@ Graphical:
 A policy is a mapping from states to actions. A policy thus specifies which action a is to be executed when one 
 is in a state s.
 ### Evaluation of a policy: Bellman Equation
+The value function V assigns to each states the value V(s) = E(Gt|st=s), where st is the state at time step t.
+Writing V and R as vectors the above equation becomes 
 
+and hence
+
+This is called the Bellman equation
 ### Find the optimal policy: Value iteration
-
+Given a MDP, we want to find the policy such that the corresponding value function is maximal and hence, 
+the expected reward. 
+To achieve that goal, an algorithm called value iteration is used.
+You can find it in the source below.
 
 Thanks to: https://ipvs.informatik.uni-stuttgart.de/mlr/wp-content/uploads/2016/04/02-MarkovDecisionProcess.pdf
 ## Tutorial for using the MDP framework
