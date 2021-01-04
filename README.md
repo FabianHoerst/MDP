@@ -23,6 +23,7 @@ Please notice:
 Definition:
 
 ![MDP Definition](assets/mdp_def.png)
+
 Graphical: 
 
 ![MDP Figure](assets/mdp.png)
