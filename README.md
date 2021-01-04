@@ -24,6 +24,9 @@ Definition:
 ![MDP Definition](assets/mdp_def.png)
 Graphical: 
 ![MDP Figure](assets/mdp.png)
+
+# TO BE CONTINUED IN THE NEXT DAYS
+
 ### Expected Reward
 ### Policy
 ### Evaluation of a policy: Bellman Equation
