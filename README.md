@@ -25,13 +25,16 @@ Definition:
 Graphical: 
 ![MDP Figure](assets/mdp.png)
 
-# TO BE CONTINUED IN THE NEXT DAYS
 
-### Expected Reward
 ### Policy
+A policy is a mapping from states to actions. A policy thus specifies which action a is to be executed when one 
+is in a state s.
 ### Evaluation of a policy: Bellman Equation
+
 ### Find the optimal policy: Value iteration
 
+
+Thanks to: https://ipvs.informatik.uni-stuttgart.de/mlr/wp-content/uploads/2016/04/02-MarkovDecisionProcess.pdf
 ## Tutorial for using the MDP framework
 To build a Markov Chain, the an MDP instance needs to be initialized in the following way:
 - states: list of states, e.g. states = ('s1', 's2', ...)
