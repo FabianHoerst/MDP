@@ -21,8 +21,10 @@ Please notice:
 
 ### Example:
 Definition:
+
 ![MDP Definition](assets/mdp_def.png)
 Graphical: 
+
 ![MDP Figure](assets/mdp.png)
 
 
@@ -33,7 +35,11 @@ is in a state s.
 The value function V assigns to each states the value V(s) = E(Gt|st=s), where st is the state at time step t.
 Writing V and R as vectors the above equation becomes 
 
+![def](assets/15o22.png)
+
 and hence
+
+![def](assets/15o22.png)
 
 This is called the Bellman equation
 ### Find the optimal policy: Value iteration
