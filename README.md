@@ -33,4 +33,12 @@ Graphical:
 ### Find the optimal policy: Value iteration
 
 ## Tutorial for using the MDP framework
-
+To build a Markov Chain, the an MDP instance needs to be initialized in the following way:
+- states: list of states, e.g. states = ('s1', 's2', ...)
+- actions: list of actions, e.g. actions = ('a1', 'a2', ...)
+- probabilities: dictionary containing the transition probabilities,
+                            structure: P(s,a,s') with s = recent state, a = action to take and s' = successor state
+                            e.g. probabilities = {('s', 'a', 's'') : p, ...}
+- rewards: dictionary containing the reward when beeing in state s, taking action a, and going to state s'
+                            structure: R(s,a,s') with s = recent state, a = action to take and s' = successor state
+                            e.g. rewards = {('s', 'a', 's'') : r, ...}
